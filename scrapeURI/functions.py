@@ -37,7 +37,7 @@ def export(output_path, response, soup):
     elif( 'text/' in response.headers['Content-type'] ):
         export_to_text_file(path, response.text, response.encoding)
     else:
-        export_to_binary_file(path, response.content )
+        export_to_binary_file(path, response.content)
     print(f"\n {os.path.basename(path)}")
 
 # ------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ def export(output_path, response, soup):
 # ------------------------------------------------------------------------------
 def search_html_tag( soup ):
     print('\n BUSCO UNA ETIQUETA EN EL CÓDIGO HTML')
-    tagname = ask_a_value('\nIntroduce el nombre de la etiqueta HTML', 'Ejemplo: div\n\n Buscar: ')
+    tagname = ask_a_value('\n Introduce el nombre de la etiqueta HTML', 'Ejemplo: div\n\n Buscar: ')
     founded = soup.find_all( tagname.lower() )
     if( len(founded) > 0 ):
         print(f"\n Encontrados: {len(founded)}\n")
@@ -60,8 +60,8 @@ def search_html_tag( soup ):
 # BUSCO UN TEXTO EN EL LA PÁGINA WEB
 # ------------------------------------------------------------------------------
 def search_text_in_webpage( soup ):
-    print('\n BUSCO UN TEXTO EN EL LA PÁGINA WEB')
-    searched = ask_a_value('\nIntroduce el texto que quieres buscar en la página web', 'Ejemplo: precio\n\n Buscar: ')
+    print('\n BUSCO UN TEXTO EN EL LA PÁGINA WEB\n\n *case sensitive')
+    searched = ask_a_value('\n Introduce el texto que quieres buscar en la página web', 'Ejemplo: precio\n\n Buscar: ')
     plain_text = soup.body.get_text()
     if( searched in plain_text ):    
         founded = soup.find_all('', string=re.compile(searched))
@@ -80,8 +80,8 @@ def search_text_in_webpage( soup ):
 # BUSCO UN TEXTO EN EL CÓDIGO HTML
 # ------------------------------------------------------------------------------
 def search_text_in_html( soup ):
-    print('\n BUSCO UN TEXTO EN EL CÓDIGO HTML')
-    searched = ask_a_value('\nIntroduce el texto que quieres buscar en el código HTML', 'Ejemplo: id="nav"\n\n Buscar: ')
+    print('\n BUSCO UN TEXTO EN EL CÓDIGO HTML\n\n *case insensitive')
+    searched = ask_a_value('\n Introduce el texto que quieres buscar en el código HTML', 'Ejemplo: id="nav"\n\n Buscar: ')
     searched = searched.lower()
     founded = []
     all = soup.select('*')
@@ -112,6 +112,8 @@ def get_filepath_for_URI( output_path, URI ):
         filepath = filepath.replace('?', '/')
     if( ':' in filepath ):
         filepath = filepath.replace(':', '-')
+    if( '&' in filepath ):
+        filepath = filepath.replace('&', '_')
     if( filepath[len(filepath)-1:] == '/' ):
         filepath = filepath[:len(filepath)-1]
     if( filepath.count('/') < 2 ):
@@ -129,7 +131,7 @@ def handle_menu_op( op, response, soup ):
         print_http_headers(response)
     # OP 1 - VER CONTENIDO
     elif( op==1 and 'text/' in response.headers['Content-type'] ):
-        show(response, soup)
+        display(response, soup)
     # OP 2 - EXPORTAR CONTENIDO
     elif( op == 2 ):
         export(output_path, response, soup)
@@ -141,9 +143,14 @@ def handle_menu_op( op, response, soup ):
         # OP 4 - BUSCAR TEXTO
         elif( op == 4 ):
             search_text_in_webpage( soup )
+
+
         # OP 5 - BUSCAR TEXTO EN CODIGO
         elif( op == 5 ):
             search_text_in_html( soup )
+            ######search_text_in_document( soup )
+
+            
     # OP -1 - TERMINAR
     elif( op == -1 ):
         print('\n TERMINANDO')

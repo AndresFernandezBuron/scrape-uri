@@ -19,12 +19,12 @@
 </tr>
 </tbody></table>
 </div>
+<br>
 <div align="right">
 <b>Language:</b> <a href="#readme-es">Español</a> | <a href="#readme-en">English</a>
 </div>
 <div id="readme-es">
 <hr>
-<br>
 
 ## Descripción
 Es un script interactivo de <a href="https://www.python.org/doc/" target="_blank">Python 3</a>, para realizar una petición HTTP a una URI y analizar la respuesta.
@@ -63,6 +63,7 @@ Ejemplos de uso:
     python scrape-uri https://paginaweb.com/
     python scrape-uri https://paginaweb.com
     python scrape-uri paginaweb.com
+    python scrape-uri webpage.com/path?param1=val1&param2=val2
 </pre>
 
 <br>
@@ -84,16 +85,15 @@ Este script es multiplataforma.
 
 | OS      | Soportado  |
 |---------|------------|
-| Unix    | <center>&#10004;</center> |
-| Linux   | <center>&#10004;</center> |
-| Windows | <center>&#10004;</center> |
+| Unix    | &#10004; |
+| Linux   | &#10004; |
+| Windows | &#10004; |
 | MAC     | Sin probar |
 <br>
 </div>
 </div>
 <br>
 <div id="readme-en">
-<br>
 <hr>
 <br>
 
@@ -134,6 +134,7 @@ Usage example:
     python scrape-uri https://webpage.com/
     python scrape-uri https://webpage.com
     python scrape-uri webpage.com
+    python scrape-uri webpage.com/path?param1=val1&param2=val2
 </pre>
 
 <br>
@@ -155,9 +156,9 @@ This script is multiplatform.
 
 | OS      | Compatibility |
 |---------|---------------|
-| Unix    | <center>&#10004;</center> |
-| Linux   | <center>&#10004;</center> |
-| Windows | <center>&#10004;</center> |
+| Unix    | &#10004; |
+| Linux   | &#10004; |
+| Windows | &#10004; |
 | MAC     | Not tested |
 <br>
 </div>

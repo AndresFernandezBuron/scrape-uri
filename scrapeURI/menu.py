@@ -40,7 +40,8 @@ def print_script_help():
     print(' Ejemplos de uso:\n')
     print(f"\t python scrape-uri https://paginaweb.com/")
     print(f"\t python scrape-uri https://paginaweb.com")
-    print(f"\t python scrape-uri paginaweb.com\n\n")
+    print(f"\t python scrape-uri paginaweb.com")
+    print(f"\t python scrape-uri webpage.com/path?param1=val1&param2=val2\n\n")
     exit()
 
 # ------------------------------------------------------------------------------
@@ -103,18 +104,17 @@ def print_menu( content_type ):
 def get_op_menu(  content_type  ):
     while True:
         op = ask_a_number('Selecciona una opción')
-        if( type(op) == int ):
-            if( op == -1):
+        if( op == -1):
+            break
+        elif 'text/html' in content_type:
+            if( op>=0 and op<=5 ):
                 break
-            elif 'text/html' in content_type:
-                if( op>=0 and op<=5 ):
-                    break
-            elif 'text/' in content_type:
-                if( op>=0 and op<=2 ):
-                    break
-            else:
-                if( op==0 or op==2 ):
-                    break
+        elif 'text/' in content_type:
+            if( op>=0 and op<=2 ):
+                break
+        else:
+            if( op==0 or op==2 ):
+                break
     return op
 
 # ------------------------------------------------------------------------------
@@ -133,7 +133,7 @@ def print_http_headers( response ):
             sep = ';'
         print('-----------------------------------------')
         if sep == '':
-            print(f" {name.upper()}: {response.headers[name]}")
+            print(f" {name.upper()}: {value}")
         else:
             print(f" {name.upper()}:")
             for item in value.split(sep):
@@ -142,7 +142,7 @@ def print_http_headers( response ):
 # ------------------------------------------------------------------------------
 # MUESTRO EN LA CONSOLA EL CONTENIDO DE LA RESPUESTA
 # ------------------------------------------------------------------------------
-def show(response, soup):
+def display(response, soup):
     print('\n-----------------------------------------')
     if( 'text/html' in response.headers['Content-type'] ):
         print( soup.prettify() )

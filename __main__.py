@@ -39,7 +39,7 @@ if response != None:
 # SI LA RESPUESTA ES 200 LA PROCESO, SI NO, TERMINO
 if( response.ok ):
 
-    # SI LA RESPUESTA ES TEXTO PLANO, INSTANCIO BEAUTIFULSOUP
+    # SI LA RESPUESTA ES TEXTO PLANO, INTENTO INSTANCIAR BEAUTIFULSOUP
     soup = None
     if( 'text/' in response.headers['Content-type'] ):
         try:

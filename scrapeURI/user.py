@@ -21,7 +21,8 @@ import os
 def clear_screen():
     if(os.name=='nt' or os.name=='ce' or os.name=='dos'):
         os.system('cls')
-    elif (os.name=='posix' or os.name=='mac' or os.name=='java'):
+    #elif (os.name=='posix' or os.name=='mac' or os.name=='java'):
+    else:
         os.system('clear')
     
 # ------------------------------------------------------------------------------
@@ -55,8 +56,6 @@ def ask_a_bool( msg='Introduce Si ó No' ):
             return True
         elif( bool[:1] in ['N','n','0'] ):
             return False
-        else:
-            continue
         
 # ------------------------------------------------------------------------------
 # DEVUELVO UN NÚMERO PEDIDO AL USUARIO
@@ -66,12 +65,11 @@ def ask_a_number( msg='Introduce un número', detail='' ):
         print(f" {msg}: ", end='')
     else:
         print(f" {msg}\n\n {detail}\n ")
-    num = None
-    while( num == None ):
+    while( True ):
         num = input(' ').lstrip().rstrip().strip()
         try:
             num = int( num )
+            return num
         except Exception as e:
             num = None
-    return num
    

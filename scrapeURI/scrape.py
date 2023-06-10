@@ -36,10 +36,10 @@ def scrap_URI( URI ):
     user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:104.0) Gecko/20100101 Firefox/104.0'
     try:
         content = requests.get(URI, params={}, headers={'User-Agent': user_agent})
+        return content
     except Exception as e:
         print(f"\n Error al hacer la petición !!\n\n {e}\n")
         exit()
-    return content
 
 # ------------------------------------------------------------------------------
 # DEVUELVO EL STR DE UN TAG DE BS4 SIN ESPACIOS BLANCOS GRANDES
