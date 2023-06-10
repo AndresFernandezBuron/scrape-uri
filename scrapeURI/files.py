@@ -53,10 +53,10 @@ def export_to_binary_file( output_file_path, content ):
         print(f"\n Error al exportar el fichero binario !!\n {output_file_path}\n\n {e}\n")
         exit()
 
+"""
 # ------------------------------------------------------------------------------
 # DEVUELVO EL CONTENIDO DE UN FICHERO DE TEXTO
 # ------------------------------------------------------------------------------
-"""
 def get_text_file( file_path ):
     content = None
     try:

@@ -124,19 +124,15 @@ def get_filepath_for_URI( output_path, URI ):
 # GESTIONO LA OPCIÓN INTRODUCIDA POR EL USUARIO EN EL MENÚ
 # ------------------------------------------------------------------------------
 def handle_menu_op( op, response, soup ):
-
     # OP 0 - VER LAS CABECERAS HTTP
     if( op == 0 ):
         print_http_headers(response)
-
     # OP 1 - VER CONTENIDO
     elif( op==1 and 'text/' in response.headers['Content-type'] ):
         show(response, soup)
-                
     # OP 2 - EXPORTAR CONTENIDO
     elif( op == 2 ):
         export(output_path, response, soup)
-
     # OPS 3, 4 y 5
     elif( 'text/html' in response.headers['Content-type'] ):
         # OP 3 - BUSCAR TAG HTML
@@ -148,8 +144,6 @@ def handle_menu_op( op, response, soup ):
         # OP 5 - BUSCAR TEXTO EN CODIGO
         elif( op == 5 ):
             search_text_in_html( soup )
-
     # OP -1 - TERMINAR
     elif( op == -1 ):
         print('\n TERMINANDO')
-
