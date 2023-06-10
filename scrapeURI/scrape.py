@@ -47,7 +47,7 @@ def scrap_URI( URI ):
 def strip_whitespaces( tag ):
     tag = str( tag )
     tag = tag.strip()
-    tag = tag.replace('  ', '')
-    tag = tag.replace('\n', '')
-    tag = tag.replace('\t', '')
+    tag = tag.replace('  ', ' ')
+    tag = tag.replace('\n', ' ')
+    tag = tag.replace('\t', ' ')
     return tag

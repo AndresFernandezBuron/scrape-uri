@@ -19,43 +19,47 @@ from .scrape import strip_whitespaces
 # ------------------------------------------------------------------------------
 # IMPRIMO EN CONSOLA, LA CABECERA DEL SCRIPT
 # ------------------------------------------------------------------------------
-def print_header():
+def print_header( uri='' ):
     clear_screen()
     print('=========================================')
-    print(' Andrés Fernández Burón')
+    print(' Andres Fernandez Buron')
     print(' Junio de 2022')
     print(' Scrapear y analizar la respuesta a una URI')
-    #print(' Scrape & analyze the response for request')
+    #print(' Scrape & analyze the response for a request')
     print('=========================================')
     print()
+    if uri != '':
+        print(f" REQUEST:  {uri}")
+
 
 # ------------------------------------------------------------------------------
 # IMPRIMO EN CONSOLA, LA INFORMACIÓN DE USO DEL SCRIPT
 # ------------------------------------------------------------------------------
 def print_script_help():
     print(' Tienes que pasar al script, la URI cómo parámetro.\n')
-    print(' Ejemplos:\n')
-    print(f"\t python scrape-uri https://paginaweb.com/\n\n")
-    print(f"\t python scrape-uri https://paginaweb.com\n")
-    print(f"\t python scrape-uri paginaweb.com\n")
+    print(' Ejemplos de uso:\n')
+    print(f"\t python scrape-uri https://paginaweb.com/")
+    print(f"\t python scrape-uri https://paginaweb.com")
+    print(f"\t python scrape-uri paginaweb.com\n\n")
     exit()
 
 # ------------------------------------------------------------------------------
 # IMPRIMO EN CONSOLA, LA INFORMACIÓN DE LA RESPUESTA
 # ------------------------------------------------------------------------------
 def print_request_info( response ):
-    print(f" Response:     {response.url}")
+    print(f" RESPONSE: {response.url}")
     print()
-    print(f" Estatus:      {response.status_code} {response.reason}")
-    print()
-    print(f" Content-Type: {response.headers['Content-type']}")
-    print(f" Encoding:     {response.encoding}")
+    print(f" STATUS:       {response.status_code} {response.reason}")
+    print(f" CONTENT-TYPE: {response.headers['Content-type']}")
+    print(f" ENCODING:     {response.encoding}")
 
 # ------------------------------------------------------------------------------
 # IMPRIMO EN CONSOLA, LA INFORMACIÓN DEL DOCUMENTO HTML
 # ------------------------------------------------------------------------------
 def print_html_info( soup ):
-    print('\n-----------------------------------------\n')
+    print('\n-----------------------------------------')
+    print('\tHTML DOCUMENT BASIC INFO:')
+    print('-----------------------------------------\n')
     if( soup.find('title') ):
         print(f" TITLE:       {soup.title.string}")
     if( soup.find('description') ):
@@ -80,28 +84,37 @@ def print_html_info( soup ):
 def print_menu( content_type ):
     print('\n-----------------------------------------')
     print(' Opciones:')
+    print('-----------------------------------------\n')
+    print('  0 -> Ver las cabeceras HTTP')
+    if( 'text/' in content_type ):
+        print('  1 -> Ver el contenido')
     print()
-    print(' 0 -> Ver las cabeceras HTTP')
-    print(' 1 -> Ver el contenido')
-    print(' 2 -> Exportar el contenido')
+    print('  2 -> Exportar el contenido')
     if( 'text/html' in content_type ):
         print()
-        print(' 3 -> Buscar en el DOM, en base a una etiqueta HTML')
-        print(' 4 -> Buscar en el texto de la página web, un texto (case sensitive)')
-        print(' 5 -> Buscar en el documento, un texto (case insensitive)')
-    print('\n -1 -> Salir')
-    print()
+        print('  3 -> Buscar en el DOM, en base a una etiqueta HTML')
+        print('  4 -> Buscar en el texto de la página web, un texto (case sensitive)')
+        print('  5 -> Buscar en el documento, un texto (case insensitive)')
+    print('\n -1 -> Salir\n')
 
 # ------------------------------------------------------------------------------
 # DEVUELVO INT CON LA OPCIÓN INTRODUCIDA POR EL USUARIO
 # ------------------------------------------------------------------------------
-def get_op_menu():
-    num_ops = 5
+def get_op_menu(  content_type  ):
     while True:
         op = ask_a_number('Selecciona una opción')
         if( type(op) == int ):
-            if( op>=-1 and op<=num_ops ):
+            if( op == -1):
                 break
+            elif 'text/html' in content_type:
+                if( op>=0 and op<=5 ):
+                    break
+            elif 'text/' in content_type:
+                if( op>=0 and op<=2 ):
+                    break
+            else:
+                if( op==0 or op==2 ):
+                    break
     return op
 
 # ------------------------------------------------------------------------------
@@ -109,17 +122,22 @@ def get_op_menu():
 # ------------------------------------------------------------------------------
 def print_http_headers( response ):
     print('\n-----------------------------------------')
-    print('\n Cabeceras HTTP:\n')
+    print('\tHTTP HEADERS:')
+    print('-----------------------------------------\n')
     for name in response.headers:
-        print(f" {name}:\t{response.headers[name]}")
-        """
-        if( ';' in response.headers[name] ):
-            print(f" {name}:")
-            for item in response.headers[name].split(';'):
-                print(f"\t{item}")
+        value = str(response.headers[name])
+        sep = ''
+        if ',' in value:
+            sep = ','
+        elif ';' in value:
+            sep = ';'
+        print('-----------------------------------------')
+        if sep == '':
+            print(f" {name.upper()}: {response.headers[name]}")
         else:
-            print(f" {name}:\t{response.headers[name]}")
-        """
+            print(f" {name.upper()}:")
+            for item in value.split(sep):
+                print(f"    {item}")
 
 # ------------------------------------------------------------------------------
 # MUESTRO EN LA CONSOLA EL CONTENIDO DE LA RESPUESTA

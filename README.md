@@ -27,7 +27,7 @@
 <br>
 
 ## Descripción
-Es un script interactivo de Python 3, para realizar una petición HTTP a una URI y analizar la respuesta.
+Es un script interactivo de <a href="https://www.python.org/doc/" target="_blank">Python 3</a>, para realizar una petición HTTP a una URI y analizar la respuesta.
 
 <br>
 
@@ -58,23 +58,22 @@ Recibe un parámetro obligatorio: la URI a scrapear.
 <br>
 
 Ejemplos de uso:
-<code>
-
+<pre>
     python scrape-uri https://www.paginaweb.com/
     python scrape-uri https://paginaweb.com/
     python scrape-uri https://paginaweb.com
     python scrape-uri paginaweb.com
-</code>
+</pre>
 
 <br>
 
 ## Dependencias
-Este proyecto requiere tener instalado Python 3.
+Este proyecto requiere tener instalado <a href="https://www.python.org/downloads/" target="_blank">Python 3</a>.
 
 También depende de las siguientes librerías de Python:
-- requests
-- bs4
-- lxml
+- <a href="https://requests.readthedocs.io/en/latest/" target="_blank">requests</a>
+- <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/" target="_blank">bs4</a>
+- <a href="https://lxml.de/index.html#documentation">lxml</a>
 
 <br>
 
@@ -130,23 +129,22 @@ It expects a single required parameter: the URI to scrape.
 <br>
 
 Usage example:
-<code>
-
-    python scrape-uri https://www.paginaweb.com/
-    python scrape-uri https://paginaweb.com/
-    python scrape-uri https://paginaweb.com
-    python scrape-uri paginaweb.com
-</code>
+<pre>
+    python scrape-uri https://www.webpage.com/
+    python scrape-uri https://webpage.com/
+    python scrape-uri https://webpage.com
+    python scrape-uri webpage.com
+</pre>
 
 <br>
 
 ## Dependencies
-This project required to have intalled Python 3.
+This project required to have intalled <a href="https://www.python.org/downloads/" target="_blank">Python 3</a>.
 
 It also depends on the following Python libraries:
-- requests
-- bs4
-- lxml
+- <a href="https://requests.readthedocs.io/en/latest/" target="_blank">requests</a>
+- <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/" target="_blank">bs4</a>
+- <a href="https://lxml.de/index.html#documentation">lxml</a>
 
 <br>
 

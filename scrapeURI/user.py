@@ -33,11 +33,11 @@ def ask_continue( msg='Pulsa ENTER para continuar' ):
 # ------------------------------------------------------------------------------
 # DEVUELVO UN VALOR PEDIDO AL USUARIO
 # ------------------------------------------------------------------------------
-def ask_a_value( msg='Introduce un valor', detalle='' ):
-    if( detalle == '' ):
+def ask_a_value( msg='Introduce un valor', detail='' ):
+    if( detail == '' ):
         print(f" {msg}: ", end='')
     else:
-        print(f" {msg}\n {detalle} ", end='')
+        print(f" {msg}\n {detail} ", end='')
     value = None
     while( value==None or value=='' ):
         value = input(' ').lstrip().rstrip().strip()
@@ -61,11 +61,11 @@ def ask_a_bool( msg='Introduce Si ó No' ):
 # ------------------------------------------------------------------------------
 # DEVUELVO UN NÚMERO PEDIDO AL USUARIO
 # ------------------------------------------------------------------------------
-def ask_a_number( msg='Introduce un número', detalle='' ):
-    if( detalle == '' ):
+def ask_a_number( msg='Introduce un número', detail='' ):
+    if( detail == '' ):
         print(f" {msg}: ", end='')
     else:
-        print(f" {msg}\n\n {detalle}\n ")
+        print(f" {msg}\n\n {detail}\n ")
     num = None
     while( num == None ):
         num = input(' ').lstrip().rstrip().strip()

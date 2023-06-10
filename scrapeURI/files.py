@@ -13,6 +13,7 @@ __email__ =       "https://github.com/AndresFernandezBuron/scrape-uri/issues/new
 """
 
 import os
+from io import BytesIO
 
 # ------------------------------------------------------------------------------
 # CREO EL DIRECTORIO, SI NO EXISTE
@@ -26,31 +27,47 @@ def create_dir_if_not_exists( dir_path ):
             exit()
 
 # ------------------------------------------------------------------------------
-# EXPORTO TEXTO PLANO A UN FICHERO DE TEXTO
+# EXPORTO TEXTO PLANO A UN FICHERO
 # ------------------------------------------------------------------------------
-def export_to_text_file( output_file_path, content ):
+def export_to_text_file( output_file_path, content, charset ):
     create_dir_if_not_exists( os.path.dirname(output_file_path) )
     try:
-        with open(output_file_path, 'w', encoding='utf-8') as fichero:
-            fichero.write(content)
-            fichero.close()
+        with open(output_file_path, 'w', encoding=charset) as file:
+            file.write(content)
+            file.close()
     except Exception as e:
         print(f"\n Error al exportar el fichero de texto !!\n {output_file_path}\n\n {e}\n")
         exit()
 
 # ------------------------------------------------------------------------------
+# EXPORTO CONTENIDO BINARIO A UN FICHERO
+# ------------------------------------------------------------------------------
+def export_to_binary_file( output_file_path, content ):
+    create_dir_if_not_exists( os.path.dirname(output_file_path) )
+    try:
+        data = BytesIO( content )
+        with open(output_file_path, 'wb') as file:
+            file.write( data.getbuffer() )
+            file.close()
+    except Exception as e:
+        print(f"\n Error al exportar el fichero binario !!\n {output_file_path}\n\n {e}\n")
+        exit()
+
+# ------------------------------------------------------------------------------
 # DEVUELVO EL CONTENIDO DE UN FICHERO DE TEXTO
 # ------------------------------------------------------------------------------
+"""
 def get_text_file( file_path ):
     content = None
     try:
-        with open(file_path, 'r', encoding='utf-8') as fichero:
-            content = fichero.read()
-            fichero.close()
+        with open(file_path, 'r', encoding='utf-8') as file:
+            content = file.read()
+            file.close()
     except Exception as e:
         print(f"\n Error al leer el fichero de texto !!\n {file_path}\n\n {e}\n")
         exit()
     return content
+"""
 
 # ------------------------------------------------------------------------------
 # DEVUELVO LA RUTA NORMALIZADA, EN FUNCIÓN DEL EL SEPARADOR DE RUTAS DEL SISTEMA

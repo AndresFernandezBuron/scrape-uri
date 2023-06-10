@@ -21,7 +21,7 @@ menu.print_header()
 import sys
 if( len(sys.argv) == 2 ):
     URI = sys.argv[1]
-    if( URI=='-h' or URI=='-help'):
+    if( URI.endswith('-h') or URI.endswith('-help') ):
         menu.print_script_help()
     URI = scrape.normalize_URI( URI )
 else:
@@ -29,7 +29,7 @@ else:
     menu.print_script_help()
 
 # REALIZO LA PETICIÓN
-print(f" Request:      {URI}")
+print(f" REQUEST:  {URI}")
 response = scrape.scrap_URI(URI)
 
 # SI HAY RESPUESTA MUESTRO LA INFO, SI NO, TERMINO
@@ -38,13 +38,15 @@ if response != None:
 
 # SI LA RESPUESTA ES 200 LA PROCESO, SI NO, TERMINO
 if( response.ok ):
-    
-    # INSTANCIA DE BEAUTIFULSOUP
-    try:
-        from bs4 import BeautifulSoup
-        soup = BeautifulSoup(response.text, features='lxml')
-    except Exception as e:
-        soup = None
+
+    # SI LA RESPUESTA ES TEXTO PLANO, INSTANCIO BEAUTIFULSOUP
+    soup = None
+    if( 'text/' in response.headers['Content-type'] ):
+        try:
+            from bs4 import BeautifulSoup
+            soup = BeautifulSoup(response.text, features='lxml')
+        except Exception as e:
+            soup = None
 
     # SI LA RESPUESTA ES HTML
     if( 'text/html' in response.headers['Content-type'] ):    
@@ -57,17 +59,16 @@ if( response.ok ):
         op = 0
         while op != -1:
 
-            menu.print_header()
-            print(f" URI : {response.url}")
+            menu.print_header( response.url )
             menu.print_request_info( response )
             menu.print_menu( response.headers['Content-type'] )
-            op = menu.get_op_menu()
-            print()
-
-            functions.handle_menu_op( op, response, soup )
-    
-            user.ask_continue()
+            op = menu.get_op_menu( response.headers['Content-type'] )
+            
+            if op != -1:
+                menu.print_header( response.url )
+                functions.handle_menu_op( op, response, soup )
+                user.ask_continue()
 
 print()
 print('----------------------------------------')
-print(' FIN DE SCRIPT')
+print(' FIN DE SCRIPT\n')

@@ -12,12 +12,9 @@ __maintainer__ =  "Andrés Fernández Burón"
 __email__ =       "https://github.com/AndresFernandezBuron/scrape-uri/issues/new/choose"
 """
 
-__name__ = 'scrapeURI'
 
-__all__ = [
-    'files',
-    'user',
-    'menu',
-    'scrape',
-    'functions',
-]
+text = {
+    '' : '',
+    '' : '',
+    '' : ''
+}
